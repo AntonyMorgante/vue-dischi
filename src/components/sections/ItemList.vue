@@ -1,5 +1,6 @@
 <template>
-    <section id="albums">
+<div>
+    <section id="albums" v-if="loaded">
         <Item v-for="(album,index) in albums"
         :key=index
         :img=album.poster
@@ -8,21 +9,27 @@
         :release=album.year
         />
     </section>
+    <Loader v-else />
+</div>
+
 </template>
 
 <script>
 import axios from 'axios';
 import Item from '../commons/Item.vue';
+import Loader from '../commons/Loader.vue';
 
 export default {
     name: "ItemList",
     components:{
-        Item
+        Item,
+        Loader
     },
     data(){
         return{
             apiURL : "https://flynn.boolean.careers/exercises/api/array/music",
-            albums : []
+            albums : [],
+            loaded : false
         }
     },
     methods: {
@@ -31,6 +38,7 @@ export default {
                 .get(this.apiURL)
                 .then((albumList) => {
                     this.albums = albumList.data.response;
+                    this.loaded = true;
                 })
                 .catch(function(error){
                     console.log(error);
