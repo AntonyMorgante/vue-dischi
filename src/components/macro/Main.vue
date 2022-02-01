@@ -20,6 +20,6 @@ export default {
 @import "../../assets/global.scss";
     main{
         background-color: $main-background;
-        height: calc(100vh - 40px);
+        height: calc(100vh - 60px);
     }
 </style>

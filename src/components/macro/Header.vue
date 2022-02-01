@@ -15,12 +15,12 @@ export default {
 <style lang="scss" scoped>
 @import "../../assets/global.scss";
     header{
-        height: 40px;
+        height: 60px;
         background-color: $item-background;
     }
 
     .logo{
-        height: 20px;
+        height: 40px;
         padding-top: 10px;
         margin-left: 30px;
     }

@@ -79,7 +79,7 @@ export default {
     #albums{
         max-width: $container-size;
         margin: 0 auto;
-        padding-top: 100px;
+        padding-top: 60px;
         text-align: center;
 
         .album-catalog{
