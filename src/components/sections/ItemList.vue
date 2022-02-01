@@ -1,13 +1,16 @@
 <template>
 <div>
     <section id="albums" v-if="loaded">
-        <Item v-for="(album,index) in albums"
-        :key=index
-        :img=album.poster
-        :title=album.title
-        :author=album.author
-        :release=album.year
-        />
+        <FilterGenre @filterAlbums="filterCatalog" />
+        <div class="album-catalog">
+            <Item v-for="(album,index) in filteredCatalog"
+            :key=index
+            :img=album.poster
+            :title=album.title
+            :author=album.author
+            :release=album.year
+            />
+        </div>
     </section>
     <Loader v-else />
 </div>
@@ -18,18 +21,22 @@
 import axios from 'axios';
 import Item from '../commons/Item.vue';
 import Loader from '../commons/Loader.vue';
+import FilterGenre from '../commons/FilterGenre.vue';
 
 export default {
     name: "ItemList",
     components:{
         Item,
-        Loader
+        Loader,
+        FilterGenre
     },
     data(){
         return{
             apiURL : "https://flynn.boolean.careers/exercises/api/array/music",
             albums : [],
-            loaded : false
+            albumsReplica: [],
+            loaded : false,
+            genre: "All"
         }
     },
     methods: {
@@ -43,22 +50,42 @@ export default {
                 .catch(function(error){
                     console.log(error);
                 });
+        },
+        filterCatalog: function (genreSelected) {
+            this.genre = genreSelected;
         }
     },
     created(){
         this.getAlbums();
+    },
+    computed: {
+        filteredCatalog(){
+            if (this.genre == "All"){
+                return this.albums;
+            } else {
+                return this.albums.filter( (album) => {
+                    return album.genre == this.genre; 
+                }
+            )}
+        }
     }
 }
+    
+
 </script>
 
 <style lang="scss" scoped>
 @import "../../assets/global.scss";
     #albums{
-        display:flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
         max-width: $container-size;
         margin: 0 auto;
         padding-top: 100px;
+        text-align: center;
+
+        .album-catalog{
+            display:flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
     }
 </style>

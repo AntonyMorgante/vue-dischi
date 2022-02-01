@@ -10,7 +10,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "../../assets/global.scss";
+
     .loading-screen{
         position:fixed;
         top:0;
@@ -18,6 +20,7 @@ export default {
         width: 100vw;
         height: 100vh;
         z-index: 99;
+        background-color: $item-background;
     }
 
     .loading-text{

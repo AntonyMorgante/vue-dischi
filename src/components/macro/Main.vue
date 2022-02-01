@@ -7,6 +7,7 @@
 <script>
 import ItemList from '../sections/ItemList.vue'
 
+
 export default {
     name: "Main",
     components:{
